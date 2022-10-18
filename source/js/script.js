@@ -8,16 +8,24 @@ const refillBtn = document.querySelector('.refill');
 
 
 class Marker {
-    constructor(color, capacity, str) {
-        this.capacity = capacity;
+    constructor(color, capacity) {
         this.color = color;
-        this.str = str;
+        this.capacity = +capacity;
     }
 
     writeText() {
         input.addEventListener('input', () => {
-            result.textContent = input.value;
-            return this.str;
+            if (this.capacity === 0) {
+                result.style.color = '#a90202';
+                result.value += '\n' + '*Refill your marker*';
+                input.disabled = true;
+            }
+            // } else if (this.capacity < 0) {
+            //     result.value += '';
+            // }  
+            else {
+                result.value = input.value;
+            }
         });
     }
 
@@ -31,13 +39,7 @@ class Marker {
                 this.capacity -= 0.5;
                 console.log(this.capacity);
             }
-
         });
-    }
-
-    refill() {
-        this.capacity = 100;
-        capacityElem.textContent = `Marker capacity: ${this.capacity}%`;
     }
 
     changeColor() {
@@ -50,17 +52,28 @@ class Marker {
     showCapacity() {
         capacityElem.textContent = `Marker capacity: ${this.capacity}%`;
         input.oninput = () => {
-            capacityElem.textContent = `Marker capacity: ${this.capacity}%`;
+            if (this.capacity <= 0) {
+                capacityElem.textContent = 'Marker is EMPTY!';
+            } else {
+                capacityElem.textContent = `Marker capacity: ${this.capacity}%`;
+            }
         };
     }
 
-
+  refill() {
+        refillBtn.addEventListener('click', () => {
+            this.capacity = 15;
+            input.disabled = false;
+            capacityElem.textContent = `Marker capacity: ${this.capacity}%`;
+            console.log('laaal');
+        });
+    }
 }
 
-const marker = new Marker('red', 100, 'Hello World');
+const marker = new Marker('red', 5);
 
 marker.writeText();
-marker.changeColor();
 marker.changeCapacity();
+marker.refill();
 marker.showCapacity();
-refillBtn.addEventListener('click', marker.refill());
+marker.changeColor();
