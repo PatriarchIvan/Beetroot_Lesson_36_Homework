@@ -1,9 +1,11 @@
 body {
-    background: linear-gradient(90deg, #17dbd1, #e7d805);
+    background: linear-gradient(90deg, #3639ed, #f6ee77);
 }
 
 .main {
+    position: relative;
     padding: 10px;
+    height: 175vh;
 }
 
 .marker {
@@ -28,7 +30,10 @@ body {
             height: 100px;
             width: 200px;
             border: none;
-            background: transparent
+            background: transparent;
+            &:hover {
+                cursor: pointer;
+            }
         }
         .capacity, 
         .refill {
@@ -57,3 +62,29 @@ body {
         letter-spacing: 0.2em;
     }
 }
+
+.down-btn {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a2704;
+    color: #fffbbb;
+    opacity: 0.5;
+    border-radius: 50%;
+    border: none;
+    font-size: 120px;
+    top: 60%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    transform: translateX(-50%);
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.hidden {
+    display: none;
+}
+

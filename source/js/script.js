@@ -5,7 +5,7 @@ const result = document.querySelector('.marker__result');
 const color = document.querySelector('.color');
 const capacityElem = document.querySelector('.capacity');
 const refillBtn = document.querySelector('.refill');
-
+const downBtn = document.querySelector('.down-btn');
 
 class Marker {
     constructor(color, capacity) {
@@ -17,13 +17,9 @@ class Marker {
         input.addEventListener('input', () => {
             if (this.capacity === 0) {
                 result.style.color = '#a90202';
-                result.value += '\n' + '*Refill your marker*';
+                result.value += '*Refill your marker*';
                 input.disabled = true;
-            }
-            // } else if (this.capacity < 0) {
-            //     result.value += '';
-            // }  
-            else {
+            } else {
                 result.value = input.value;
             }
         });
@@ -60,12 +56,12 @@ class Marker {
         };
     }
 
-  refill() {
+    refill() {
         refillBtn.addEventListener('click', () => {
-            this.capacity = 15;
+            this.capacity = 100;
             input.disabled = false;
             capacityElem.textContent = `Marker capacity: ${this.capacity}%`;
-            console.log('laaal');
+            result.value = input.value;
         });
     }
 }
@@ -77,3 +73,21 @@ marker.changeCapacity();
 marker.refill();
 marker.showCapacity();
 marker.changeColor();
+
+window.addEventListener('scroll', () => {
+    if(window.pageYOffset > 200) {
+        downBtn.classList.remove('hidden');
+    } else {
+        downBtn.classList.add('hidden');
+    }
+});
+
+downBtn.addEventListener('click',() => {
+    window.scrollTo(
+        {
+            top: 0,
+            behavior: 'smooth'
+        }
+    );
+    console.log('OK'); 
+});
